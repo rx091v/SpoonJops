@@ -9,6 +9,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import WorkIcon from '@mui/icons-material/Work';
 import {
   AppBar,
+  Avatar,
   Box,
   Divider,
   IconButton,
@@ -21,6 +22,8 @@ import {
   TextField,
   Toolbar,
   Typography,
+  Chip,
+  Stack,
 } from '@mui/material';
 import type { ReactNode } from 'react';
 import { Link, useLocation } from 'react-router';
@@ -52,31 +55,64 @@ export function AppLayout({ children, darkMode, onToggleDarkMode }: AppLayoutPro
   const location = useLocation();
 
   return (
-    <Box sx={{ display: 'flex', minHeight: '100vh' }}>
+    <Box sx={{ display: 'flex', minHeight: '100vh', bgcolor: 'background.default' }}>
       <Box
         component="aside"
         sx={{
-          width: 260,
+          width: 288,
           borderRight: 1,
           borderColor: 'divider',
           display: { xs: 'none', md: 'block' },
           flexShrink: 0,
+          bgcolor: 'background.paper',
+          position: 'sticky',
+          top: 0,
+          height: '100vh',
         }}
       >
-        <Toolbar>
-          <Typography variant="h6" noWrap>
-            Job Search Agent
-          </Typography>
+        <Toolbar sx={{ minHeight: 72, px: 2 }}>
+          <Stack direction="row" spacing={1.5} alignItems="center" width="100%">
+            <Avatar
+              sx={{
+                width: 36,
+                height: 36,
+                bgcolor: 'primary.main',
+                fontSize: 16,
+                fontWeight: 800,
+              }}
+            >
+              JS
+            </Avatar>
+            <Box sx={{ minWidth: 0 }}>
+              <Typography variant="h6" noWrap>
+                Spoon Jops
+              </Typography>
+              <Typography variant="caption" color="text.secondary" noWrap>
+                Bengaluru-first discovery workspace
+              </Typography>
+            </Box>
+          </Stack>
         </Toolbar>
         <Divider />
-        <List dense>
+        <Box sx={{ px: 1.5, py: 1.5 }}>
+          <Chip label="Live discovery" size="small" color="primary" sx={{ mb: 1.5 }} />
+        </Box>
+        <List dense sx={{ px: 1 }}>
           {navItems.map((item) => (
             <ListItemButton
               key={item.path}
               component={Link}
               to={item.path}
               selected={location.pathname === item.path}
-              sx={{ minHeight: 44 }}
+              sx={{
+                minHeight: 44,
+                borderRadius: 2,
+                mb: 0.5,
+                '&.Mui-selected': {
+                  bgcolor: 'action.selected',
+                  '&:hover': { bgcolor: 'action.selected' },
+                },
+              }}
             >
               <ListItemIcon sx={{ minWidth: 40 }}>{item.icon}</ListItemIcon>
               <ListItemText primary={item.label} />
@@ -87,11 +123,12 @@ export function AppLayout({ children, darkMode, onToggleDarkMode }: AppLayoutPro
 
       <Box sx={{ flex: 1, minWidth: 0 }}>
         <AppBar position="sticky" color="default" elevation={0} sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Toolbar sx={{ gap: 2 }}>
+          <Toolbar sx={{ gap: 2, minHeight: 72 }}>
             <TextField
               size="small"
               placeholder="Search"
-              sx={{ maxWidth: 420, flex: 1 }}
+              sx={{ maxWidth: 520, flex: 1 }}
+              variant="outlined"
               slotProps={{
                 input: {
                   startAdornment: (
@@ -102,13 +139,14 @@ export function AppLayout({ children, darkMode, onToggleDarkMode }: AppLayoutPro
                 },
               }}
             />
+            <Chip label={darkMode ? 'Dark' : 'Light'} variant="outlined" />
             <Switch checked={darkMode} onChange={onToggleDarkMode} inputProps={{ 'aria-label': 'Dark mode' }} />
             <IconButton component={Link} to="/settings" aria-label="Settings">
               <SettingsIcon />
             </IconButton>
           </Toolbar>
         </AppBar>
-        <Box component="main" sx={{ px: { xs: 2, md: 4 }, py: 3 }}>
+        <Box component="main" sx={{ px: { xs: 2, md: 4 }, py: 3, maxWidth: 1600 }}>
           {children}
         </Box>
       </Box>

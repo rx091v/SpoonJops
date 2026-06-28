@@ -1,4 +1,4 @@
-import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
+import { CssBaseline, ThemeProvider, alpha, createTheme } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useMemo, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router';
@@ -19,17 +19,60 @@ export function App() {
       createTheme({
         palette: {
           mode: darkMode ? 'dark' : 'light',
-          primary: { main: '#1f7a8c' },
-          secondary: { main: '#bf5f45' },
+          primary: { main: '#177e89' },
+          secondary: { main: '#d17b0f' },
           background: {
-            default: darkMode ? '#111517' : '#f6f7f8',
-            paper: darkMode ? '#181d20' : '#ffffff',
+            default: darkMode ? '#0f1315' : '#f4f6f7',
+            paper: darkMode ? '#151a1d' : '#ffffff',
           },
+          divider: darkMode ? 'rgba(255,255,255,0.08)' : 'rgba(15,23,42,0.12)',
         },
         shape: { borderRadius: 8 },
         typography: {
           fontFamily:
             'Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+          h4: { fontWeight: 800, letterSpacing: 0 },
+          h6: { fontWeight: 700, letterSpacing: 0 },
+          button: { textTransform: 'none', fontWeight: 700 },
+        },
+        components: {
+          MuiCssBaseline: {
+            styleOverrides: {
+              body: {
+                backgroundImage: 'none',
+              },
+            },
+          },
+          MuiPaper: {
+            styleOverrides: {
+              root: {
+                backgroundImage: 'none',
+                borderColor: darkMode ? 'rgba(255,255,255,0.08)' : 'rgba(15,23,42,0.12)',
+              },
+            },
+          },
+          MuiAppBar: {
+            styleOverrides: {
+              root: {
+                backgroundColor: darkMode ? alpha('#0f1315', 0.92) : alpha('#f4f6f7', 0.92),
+                backdropFilter: 'blur(10px)',
+              },
+            },
+          },
+          MuiButton: {
+            styleOverrides: {
+              root: {
+                borderRadius: 8,
+              },
+            },
+          },
+          MuiChip: {
+            styleOverrides: {
+              root: {
+                borderRadius: 8,
+              },
+            },
+          },
         },
       }),
     [darkMode],

@@ -25,7 +25,7 @@ class CommaSeparatedEnvSource(EnvSettingsSource):
 
 class Settings(BaseSettings):
     app_env: str = "local"
-    app_name: str = "AI Job Search Agent"
+    app_name: str = "Spoon Jops"
     log_level: str = "INFO"
     cors_origins: list[str] = Field(default_factory=lambda: ["http://localhost:5173"])
 

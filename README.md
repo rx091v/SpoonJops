@@ -1,4 +1,4 @@
-# AI Job Search Agent
+# Spoon Jops
 
 Production-oriented AI job search automation platform built incrementally from the specification.
 
